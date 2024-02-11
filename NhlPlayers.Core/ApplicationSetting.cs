@@ -19,6 +19,7 @@ namespace NhlPlayers.Core
 
         public bool SkipFirstCsvLine { get; set; } = true;
         public char CsvSeparator { get; set; } = ';';
+        public string ExportFileTemplate { get; set; } = $"Players-{DateTime.Now:yyyy-MM-dd_HH_mm_ss}.csv";
 
     }
 }

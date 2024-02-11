@@ -26,8 +26,9 @@ namespace NhlPlayers.Core
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IImportService, ImportService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IPlayerService, PlayerService>();
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IPlayerMemoryService, PlayerMemoryService>();
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<IExportService, ExportService>();
 
-
+            new FolderHandler(new ApplicationSetting()).InitFolders();
 
             RegisterAppStart<ListingPlayerViewModel>();
         }

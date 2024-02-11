@@ -3,5 +3,6 @@
     public interface IDialogHandler
     {
         string ImportDialog();
+        string ExportDialog();
     }
 }

@@ -13,6 +13,10 @@ namespace NhlPlayers.Infrastructure
         {
             return File.ReadLines(path);
         }
+        public void SaveFile(string path, IEnumerable<string> lines)
+        {
+            File.WriteAllLines(path, lines);
+        }
 
     }
 }

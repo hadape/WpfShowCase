@@ -20,10 +20,12 @@ namespace NhlPlayers.Core.ViewModels
         IDialogHandler _dialogHandler;
         IPlayerService _playerService;
         IPlayerMemoryService _playersMemory;
+        IExportService _exportService;
 
-        public ListingPlayerViewModel(IDialogHandler dialogHandler, IPlayerService playerService, IPlayerMemoryService playersMemory)
+        public ListingPlayerViewModel(IDialogHandler dialogHandler, IPlayerService playerService, IPlayerMemoryService playersMemory, IExportService exportService)
         {
             ImportPlayerCommand = new MvxCommand(ImportPlayers);
+            ExportPlayerCommand = new MvxCommand(ExportPlayers);
             _dialogHandler = dialogHandler;
             _playerService = playerService;
             _playersMemory = playersMemory;
@@ -33,6 +35,8 @@ namespace NhlPlayers.Core.ViewModels
                                 {
                                     EMPTY
                                 };
+            SelectedProperty = EMPTY;
+            _exportService = exportService;
         }
 
         private ObservableCollection<PlayerStats> _players = new ObservableCollection<PlayerStats>();
@@ -52,21 +56,24 @@ namespace NhlPlayers.Core.ViewModels
             set { SetProperty(ref _playersProperty, value); }
         }
 
-      
-
-
         public IMvxCommand ImportPlayerCommand { get; set; }
+        public IMvxCommand ExportPlayerCommand { get; set; }
 
 
 		public void ImportPlayers()
 		{
-            Players.Clear();
-            _playersMemory.Clear();
+
 			var path = _dialogHandler.ImportDialog();
             var importedPlayer = _playerService.ImportPlayers(path);
             _playersMemory.Set(importedPlayer);
             Players = new ObservableCollection<PlayerStats>(importedPlayer);
 		}
+
+        public void ExportPlayers()
+        {
+            var path = _dialogHandler.ExportDialog();
+            _exportService.ExportPlayers(path, Players);
+        }
 
     }
 }

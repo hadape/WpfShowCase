@@ -10,14 +10,40 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <StackPanel Margin="10">
-            <TextBox Text="{Binding FilterFirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Text="{Binding FilterLastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Text="{Binding FilterClub, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
-            <ComboBox ItemsSource="{Binding PlayersProperty}" SelectedItem="{Binding SelectedProperty, Mode=TwoWay}" />
-            <Button mvx:Bi.nd="Command ImportPlayerCommand" Margin="0 0 0 15">Import</Button>
-            <DataGrid ItemsSource="{Binding Players}" AutoGenerateColumns="True"></DataGrid>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+                <TextBox Width="50" Text="{Binding FilterFirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Width="50"  Text="{Binding FilterLastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Width="50"  Text="{Binding FilterClub, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Width="50"  mvx:Bi.nd="Command ImportPlayerCommand" Margin="0 0 0 15">Import</Button>
+                <Button Width="50"  mvx:Bi.nd="Command ExportPlayerCommand" Margin="0 0 0 15">Export</Button>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="1">
+            <ComboBox  ItemsSource="{Binding PlayersProperty}" SelectedItem="{Binding SelectedProperty, Mode=TwoWay}" MaxWidth="100" />
+        </Border>
+           
+            <Grid Grid.Row="2">
+                <ListView ItemsSource="{Binding Players}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding FirstName}" Width="100"/>
+                            <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding LastName}" Width="100"/>
+                            <GridViewColumn Header="Club" DisplayMemberBinding="{Binding Club}" Width="100"/>
+                            <GridViewColumn Header="Games Played" DisplayMemberBinding="{Binding GamesPlayed}" Width="100"/>
+                            <GridViewColumn Header="Goals" DisplayMemberBinding="{Binding Goals}" Width="50"/>
+                            <GridViewColumn Header="Assists" DisplayMemberBinding="{Binding Assistence}" Width="50"/>
+                            <GridViewColumn Header="Points" DisplayMemberBinding="{Binding Points}" Width="50"/>
+                            <GridViewColumn Header="Goals Per Game" DisplayMemberBinding="{Binding GoalsPerGame}" Width="100"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+  
     </Grid>
 </views:MvxWpfView>

@@ -1,8 +1,8 @@
 ﻿using MvvmCross.Core;
 using MvvmCross.Platforms.Wpf.Core;
 using MvvmCross.Platforms.Wpf.Views;
+using NhlPlayers.Core;
 using NhlPlayers.Infrastructure;
-using NhlPlayers.WPF.Settings;
 using System.Windows;
 
 namespace NhlPlayers.WPF
@@ -17,12 +17,6 @@ namespace NhlPlayers.WPF
             this.RegisterSetupType<MvxWpfSetup<Core.App>>();
         }
         
-
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
-            new FolderHandler(new ApplicationSetting()).InitFolders();
-        }
 
     }
 }

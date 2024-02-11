@@ -97,7 +97,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Settings\ApplicationSetting.cs" />
     <Compile Include="Views\ListingPlayerView.xaml.cs">
       <DependentUpon>ListingPlayerView.xaml</DependentUpon>
     </Compile>

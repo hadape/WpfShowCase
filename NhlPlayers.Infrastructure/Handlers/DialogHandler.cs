@@ -34,5 +34,26 @@ namespace NhlPlayers.Infrastructure.Handlers
             }
             return result;
         }
+
+        public string ExportDialog()
+        {
+            string result = string.Empty;
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = _setting.FileTypeFilter;
+            string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string exportDirectory = Path.Combine(currentDirectory, _setting.ExportFolder);
+            saveFileDialog1.InitialDirectory = exportDirectory;
+            string defaultFileName = _setting.ExportFileTemplate; 
+            saveFileDialog1.FileName = defaultFileName; 
+
+
+            bool? succes = saveFileDialog1.ShowDialog();
+
+            if (succes == true)
+            {
+                result = saveFileDialog1.FileName;
+            }
+            return result;
+        }
     }
 }

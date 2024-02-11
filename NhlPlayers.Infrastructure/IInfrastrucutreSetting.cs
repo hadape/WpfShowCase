@@ -13,5 +13,6 @@ namespace NhlPlayers.Infrastructure
         string ImportPath { get;}
         string ExportPath { get;}
         string FileTypeFilter { get; set; }
+        string ExportFileTemplate { get; set; }
     }
 }
