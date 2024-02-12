@@ -1,4 +1,5 @@
-﻿using NhlPlayers.DTO.WPFModels;
+﻿using MvvmCross.Commands;
+using NhlPlayers.DTO.WPFModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -63,6 +64,18 @@ namespace NhlPlayers.Core.ViewModels
                     ApplyFilters();
                 }
             }
+        }
+
+        public IMvxCommand ClearFiltersCommand { get; private set; }
+
+        private void ClearFilters()
+        {
+            FilterFirstName = string.Empty;
+            FilterLastName = string.Empty;
+            FilterClub = string.Empty;
+            SelectedProperty = EMPTY; 
+
+            ApplyFilters(); 
         }
 
         private void ApplyFilters()

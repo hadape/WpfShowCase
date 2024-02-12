@@ -17,5 +17,6 @@ namespace NhlPlayers.DTO.WPFModels
         public int Assistence { get; set; }
         public int Points { get; set; }
         public double GoalsPerGame { get; set; }
+        public string GAndA => $"{Goals}+{Assistence}";
     }
 }

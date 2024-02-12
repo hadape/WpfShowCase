@@ -21,7 +21,8 @@ namespace NhlPlayers.BL.Mappers
                 GamesPlayed = importPlayer.GamesPlayed,
                 Goals = importPlayer.Goals,
                 Assistence = importPlayer.Assistence,
-                GoalsPerGame = importPlayer.GoalsPerGame
+                GoalsPerGame = importPlayer.GoalsPerGame,
+                Points = importPlayer.Points,
             };
         }
     }

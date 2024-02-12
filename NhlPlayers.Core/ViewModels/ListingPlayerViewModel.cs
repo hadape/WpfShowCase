@@ -26,12 +26,14 @@ namespace NhlPlayers.Core.ViewModels
         {
             ImportPlayerCommand = new MvxCommand(ImportPlayers);
             ExportPlayerCommand = new MvxCommand(ExportPlayers);
+            ClearFiltersCommand = new MvxCommand(ClearFilters);
             _dialogHandler = dialogHandler;
             _playerService = playerService;
             _playersMemory = playersMemory;
             PlayersProperty = new ObservableCollection<string>(
-            typeof(PlayerStats).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                               .Select(prop => prop.Name))
+     typeof(PlayerStats).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                        .Where(prop => prop.Name != nameof(PlayerStats.GAndA)) 
+                        .Select(prop => prop.Name))
                                 {
                                     EMPTY
                                 };
@@ -44,7 +46,9 @@ namespace NhlPlayers.Core.ViewModels
         public ObservableCollection<PlayerStats> Players
 		{
 			get { return _players; }
-			set { SetProperty(ref _players, value); }
+			set { SetProperty(ref _players, value);
+                RaisePropertyChanged(() => PlayersCountDisplay);
+            }
 		}
 
 
@@ -54,6 +58,14 @@ namespace NhlPlayers.Core.ViewModels
         {
             get { return _playersProperty; }
             set { SetProperty(ref _playersProperty, value); }
+        }
+
+        public string PlayersCountDisplay
+        {
+            get
+            {
+                return $"{Players.Count}/{_playersMemory.Players.Count()}";
+            }
         }
 
         public IMvxCommand ImportPlayerCommand { get; set; }

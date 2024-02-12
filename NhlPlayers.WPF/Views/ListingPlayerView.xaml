@@ -11,39 +11,120 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="55"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0">
-            <StackPanel Orientation="Horizontal">
-                <TextBox Width="50" Text="{Binding FilterFirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBox Width="50"  Text="{Binding FilterLastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBox Width="50"  Text="{Binding FilterClub, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <Button Width="50"  mvx:Bi.nd="Command ImportPlayerCommand" Margin="0 0 0 15">Import</Button>
-                <Button Width="50"  mvx:Bi.nd="Command ExportPlayerCommand" Margin="0 0 0 15">Export</Button>
-            </StackPanel>
-        </Border>
-        <Border Grid.Row="1">
-            <ComboBox  ItemsSource="{Binding PlayersProperty}" SelectedItem="{Binding SelectedProperty, Mode=TwoWay}" MaxWidth="100" />
-        </Border>
-           
-            <Grid Grid.Row="2">
-                <ListView ItemsSource="{Binding Players}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding FirstName}" Width="100"/>
-                            <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding LastName}" Width="100"/>
-                            <GridViewColumn Header="Club" DisplayMemberBinding="{Binding Club}" Width="100"/>
-                            <GridViewColumn Header="Games Played" DisplayMemberBinding="{Binding GamesPlayed}" Width="100"/>
-                            <GridViewColumn Header="Goals" DisplayMemberBinding="{Binding Goals}" Width="50"/>
-                            <GridViewColumn Header="Assists" DisplayMemberBinding="{Binding Assistence}" Width="50"/>
-                            <GridViewColumn Header="Points" DisplayMemberBinding="{Binding Points}" Width="50"/>
-                            <GridViewColumn Header="Goals Per Game" DisplayMemberBinding="{Binding GoalsPerGame}" Width="100"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+        <Border Grid.Row="0" Padding="5 0 0 0">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                    <GradientStop Color="#FF150467"/>
+                    <GradientStop Color="#FF745EDC" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBox Margin="0 0 5 0" Style="{StaticResource ModernTextbox}"
+                             Text="{Binding FilterFirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Tag="First Name" />
+                    <TextBox Margin="0 0 5 0" Style="{StaticResource ModernTextbox}"
+                             Text="{Binding FilterLastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Tag="Last Name" />
+                    <TextBox Margin="0 0 5 0" Style="{StaticResource ModernTextbox}"
+                             Text="{Binding FilterClub, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Tag="Club" />
+                    <ComboBox 
+                           Style="{StaticResource ModernComboBox}" ItemsSource="{Binding PlayersProperty}" SelectedItem="{Binding SelectedProperty, Mode=TwoWay}" 
+                           Width="120"  Margin="0 0 5 0" />
+                    <Button Content="X" Command="{Binding ClearFiltersCommand}" Style="{StaticResource RoundedButtonStyle}" Width="40" />
+                    <TextBlock Text="{Binding PlayersCountDisplay}" VerticalAlignment="Center" Margin="15 0 5 0" FontWeight="Bold" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button Width="70" Style="{StaticResource RoundedButtonStyle}" mvx:Bi.nd="Command ImportPlayerCommand" Margin="5 0">Import</Button>
+                    <Button Width="70" Style="{StaticResource RoundedButtonStyle}" mvx:Bi.nd="Command ExportPlayerCommand" Margin="5 0">Export</Button>
+                </StackPanel>
             </Grid>
-  
+        </Border>
+
+        <Grid Grid.Row="1">
+            <ListView ItemsSource="{Binding Players}" >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="First Name" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding FirstName}" TextAlignment="Right" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+
+                        <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding LastName}" Width="100"/>
+                        
+                        <GridViewColumn Header="Club" Width="50">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Foreground="Gray">
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="[{0}]">
+                                                <Binding Path="Club"/>
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                        
+                                    </TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="Games" Width="50">
+                            <GridViewColumn.DisplayMemberBinding>
+                                <Binding Path="GamesPlayed" StringFormat="{}{0} z."/>
+                            </GridViewColumn.DisplayMemberBinding>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="G + A" Width="70">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding GAndA}" TextAlignment="Right" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+
+
+                        <GridViewColumn Header="Points" Width="50">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Points}" TextAlignment="Center" FontWeight="Bold" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+
+                        <GridViewColumn Header="Goals per game" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Foreground="Gray">
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="[{0}]">
+                                                <Binding Path="GoalsPerGame"/>
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+
+                                    </TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+
     </Grid>
 </views:MvxWpfView>
