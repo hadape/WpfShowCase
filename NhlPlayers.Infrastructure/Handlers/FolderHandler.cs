@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace NhlPlayers.Infrastructure
 {
@@ -17,7 +12,7 @@ namespace NhlPlayers.Infrastructure
         }
         public void InitFolders()
         {
-            if(Directory.Exists(_setting.ImportPath) == false)
+            if (Directory.Exists(_setting.ImportPath) == false)
             {
                 Directory.CreateDirectory(_setting.ImportPath);
             }

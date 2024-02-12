@@ -6,11 +6,6 @@ using NhlPlayers.BL.Services;
 using NhlPlayers.Core.ViewModels;
 using NhlPlayers.Infrastructure;
 using NhlPlayers.Infrastructure.Handlers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NhlPlayers.Core
 {

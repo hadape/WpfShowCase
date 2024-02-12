@@ -1,10 +1,6 @@
 ﻿using NhlPlayers.DTO.WPFModels;
 using NhlPlayers.Infrastructure;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NhlPlayers.BL.Services
 {

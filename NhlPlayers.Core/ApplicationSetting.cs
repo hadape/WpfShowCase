@@ -1,13 +1,9 @@
 ﻿using NhlPlayers.BL;
 using NhlPlayers.Infrastructure;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NhlPlayers.Core
-{ 
+{
     public class ApplicationSetting : IInfrastrucutreSetting, IBLSetting
     {
         public string ImportFolder { get; set; } = "Import";

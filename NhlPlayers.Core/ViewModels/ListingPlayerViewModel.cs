@@ -3,24 +3,19 @@ using MvvmCross.ViewModels;
 using NhlPlayers.BL.Services;
 using NhlPlayers.DTO.WPFModels;
 using NhlPlayers.Infrastructure.Handlers;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Configuration;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace NhlPlayers.Core.ViewModels
 {
     public partial class ListingPlayerViewModel : MvxViewModel
     {
-        IDialogHandler _dialogHandler;
-        IPlayerService _playerService;
-        IPlayerMemoryService _playersMemory;
-        IExportService _exportService;
+        private IDialogHandler _dialogHandler;
+        private IPlayerService _playerService;
+        private IPlayerMemoryService _playersMemory;
+        private IExportService _exportService;
 
         public ListingPlayerViewModel(IDialogHandler dialogHandler, IPlayerService playerService, IPlayerMemoryService playersMemory, IExportService exportService)
         {
@@ -32,7 +27,7 @@ namespace NhlPlayers.Core.ViewModels
             _playersMemory = playersMemory;
             PlayersProperty = new ObservableCollection<string>(
      typeof(PlayerStats).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                        .Where(prop => prop.Name != nameof(PlayerStats.GAndA)) 
+                        .Where(prop => prop.Name != nameof(PlayerStats.GAndA))
                         .Select(prop => prop.Name))
                                 {
                                     EMPTY
@@ -44,12 +39,14 @@ namespace NhlPlayers.Core.ViewModels
         private ObservableCollection<PlayerStats> _players = new ObservableCollection<PlayerStats>();
 
         public ObservableCollection<PlayerStats> Players
-		{
-			get { return _players; }
-			set { SetProperty(ref _players, value);
+        {
+            get { return _players; }
+            set
+            {
+                SetProperty(ref _players, value);
                 RaisePropertyChanged(() => PlayersCountDisplay);
             }
-		}
+        }
 
 
         private ObservableCollection<string> _playersProperty = new ObservableCollection<string>();
@@ -72,14 +69,14 @@ namespace NhlPlayers.Core.ViewModels
         public IMvxCommand ExportPlayerCommand { get; set; }
 
 
-		public void ImportPlayers()
-		{
+        public void ImportPlayers()
+        {
 
-			var path = _dialogHandler.ImportDialog();
+            var path = _dialogHandler.ImportDialog();
             var importedPlayer = _playerService.ImportPlayers(path);
             _playersMemory.Set(importedPlayer);
             Players = new ObservableCollection<PlayerStats>(importedPlayer);
-		}
+        }
 
         public void ExportPlayers()
         {

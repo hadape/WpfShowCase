@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NhlPlayers.Core.ViewModels
 {
@@ -13,7 +11,7 @@ namespace NhlPlayers.Core.ViewModels
     {
 
         private const string EMPTY = "Body (default)";
-        private List<Func<PlayerStats, bool>> _filters = new List<Func<PlayerStats, bool>>();
+        private readonly List<Func<PlayerStats, bool>> _filters = new List<Func<PlayerStats, bool>>();
         private string _selectedProperty;
         public string SelectedProperty
         {
@@ -73,9 +71,9 @@ namespace NhlPlayers.Core.ViewModels
             FilterFirstName = string.Empty;
             FilterLastName = string.Empty;
             FilterClub = string.Empty;
-            SelectedProperty = EMPTY; 
+            SelectedProperty = EMPTY;
 
-            ApplyFilters(); 
+            ApplyFilters();
         }
 
         private void ApplyFilters()

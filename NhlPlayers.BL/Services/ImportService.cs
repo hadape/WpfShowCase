@@ -1,21 +1,18 @@
 ﻿
 using NhlPlayers.DTO.Attributes;
 using NhlPlayers.DTO.ImportModels;
-using NhlPlayers.DTO.WPFModels;
 using NhlPlayers.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NhlPlayers.BL.Services
 {
 
     public class ImportService : IImportService
     {
-        IFileHandler _fileHandler;
-        IBLSetting _blSetting;
+        private readonly IFileHandler _fileHandler;
+        private readonly IBLSetting _blSetting;
 
         public ImportService(IFileHandler fileHandler, IBLSetting blSetting)
         {
@@ -52,14 +49,10 @@ namespace NhlPlayers.BL.Services
                     int position = attr.Position;
                     if (position < values.Length)
                     {
-                        try
-                        {
-                            prop.SetValue(player, Convert.ChangeType(values[position], prop.PropertyType));
-                        }
-                        catch(Exception ex)
-                        {
-                            var foo = ex;
-                        }
+
+                        prop.SetValue(player, Convert.ChangeType(values[position], prop.PropertyType));
+
+
                     }
                 }
             }
